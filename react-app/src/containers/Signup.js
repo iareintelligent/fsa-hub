@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { thunkSignUp, thunkConfirmSignup } from "../thunks/auth";
+import { thunkSignUp, thunkConfirmSignup } from "../actions/auth";
 
 import RegistrationForm from "../components/RegistrationForm";
 import ConfirmationForm from "../components/ConfirmationForm";

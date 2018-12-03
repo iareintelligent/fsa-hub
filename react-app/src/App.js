@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import Routes from "./Routes";
 import aws_exports from "./aws-exports";
-import { thunkCurrentAuthenticatedUser } from "./thunks/auth";
+import { thunkCurrentAuthenticatedUser } from "./actions/auth";
 import TopNavbar from "./components/TopNavbar";
 
 import "./App.css";

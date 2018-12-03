@@ -1,35 +1,34 @@
 import React from "react";
 import PaperTextField from "./PaperTextField";
 import { connect } from "react-redux";
-import { setEmail } from "../actions/user";
+import { setUsername } from "../actions/user";
 
-class EmailInput extends React.Component {
+class UsernameInput extends React.Component {
     render() {
-        console.log(this.props);
         return (
             <PaperTextField
-                id="email"
-                label="email"
-                type="email"
+                id="username"
+                label="username"
+                type="text"
                 handleChange={this.handleChange}
-                value={this.props.email}
+                value={this.props.username}
                 autoComplete="new-password"
-                disabled={this.props.disableEmailInput}
+                disabled={this.props.disableUsernameInput}
                 fullWidth
             />
         );
     }
     handleChange = event => {
-        this.props.dispatch(setEmail(event.target.value));
+        this.props.dispatch(setUsername(event.target.value));
     };
 }
 
 const mapStateToProps = state => {
     console.log(state);
     return {
-        email: state.user.email,
+        username: state.user.username,
         disableUsernameInput: state.authForm.disableUsernameInput
     };
 };
 
-export default connect(mapStateToProps)(EmailInput);
+export default connect(mapStateToProps)(UsernameInput);

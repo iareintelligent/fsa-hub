@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { setUsername } from "../actions/user";
-import { thunkForgotPassword } from "../thunks/auth";
+import { thunkForgotPassword } from "../actions/auth";
 
 class ForgotPasswordForm extends React.Component {
     render() {

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { setUsername, setPassword } from "../actions/user";
-import { thunkSignIn } from "../thunks/auth";
+import { thunkSignIn } from "../actions/auth";
 
 class LoginForm extends React.Component {
     render() {

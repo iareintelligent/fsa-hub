@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-import { thunkSignOut } from "../thunks/auth";
+import { thunkSignOut } from "../actions/auth";
 
 const styles = {
     grow: {

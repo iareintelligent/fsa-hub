@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 
 import PaperTextField from "../components/PaperTextField";
 import LoadingButton from "../components/LoadingButton";
-import EmailInput from "../components/EmailInput";
+import UsernameInput from "../components/UsernameInput";
 import PasswordInput from "../components/PasswordInput";
 import ConfirmationCodeInput from "../components/ConfirmationCodeInput";
 
@@ -20,7 +20,7 @@ import {
     forgotPasswordForm,
     userNotFoundForm
 } from "../actions/authForm";
-import { thunkSignIn, signInPasswordError } from "../thunks/auth";
+import { thunkSignIn, signInPasswordError } from "../actions/auth";
 
 const styles = theme => ({
     login: {
@@ -49,7 +49,7 @@ class AccountContainer extends React.Component {
                     className={classes.loginForm}
                     onSubmit={this.handleFormSubmit}
                 >
-                    <EmailInput />
+                    <UsernameInput />
                     <PasswordInput variant="password" />
                     <PasswordInput variant="confirmPassword" />
                     {this.props.authForm.formAction === "signInPasswordError" &&
