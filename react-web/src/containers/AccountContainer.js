@@ -7,6 +7,7 @@ import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
 
 import PaperTextField from "../components/PaperTextField";
+import FormActionbutton from "../components/FormActionButton";
 import LoadingButton from "../components/LoadingButton";
 import UsernameInput from "../components/UsernameInput";
 import PasswordInput from "../components/PasswordInput";
@@ -42,7 +43,7 @@ class AccountContainer extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, authForm, auth } = this.props;
         return (
             <div className={classes.login}>
                 <form
@@ -52,7 +53,25 @@ class AccountContainer extends React.Component {
                     <UsernameInput />
                     <PasswordInput variant="password" />
                     <PasswordInput variant="confirmPassword" />
-                    {this.props.authForm.formAction === "signInPasswordError" &&
+                    <FormActionbutton
+                        text={authForm.buttonContent}
+                        loadingText={authForm.buttonLoadingContent}
+                        disabled={this.getDisabledButtonState()}
+                    />
+                    {authForm.showSignUpButton && (
+                        <Button
+                            color={
+                                !authForm.disabledActionButton
+                                    ? "primary"
+                                    : "secondary"
+                            }
+                            type="button"
+                            onClick={this.handleSignUpButton}
+                        >
+                            {authForm.signUpButtonText || "Error"}
+                        </Button>
+                    )}
+                    {/* {authForm.formAction === "signInPasswordError" &&
                         this.renderFormActionButton({
                             order: 0,
                             buttonContent: "Reset Password",
@@ -65,58 +84,46 @@ class AccountContainer extends React.Component {
                     {this.renderFormActionButton({
                         color: "default",
                         buttonContent: this.props.authForm.buttonContent,
-                        disabled: this.handleDisableActionButton(),
+                        disabled: this.getDisabledButtonState(),
                         variant: "contained"
                     })}
-                    {this.props.authForm.showSignUpButton && (
-                        <Button
-                            color={
-                                !this.props.authForm.disabledActionButton
-                                    ? "primary"
-                                    : "secondary"
-                            }
-                            type="button"
-                            onClick={this.handleSignUpButton}
-                        >
-                            {this.props.authForm.signUpButtonText || "Error"}
-                        </Button>
-                    )}
+                    */}
                 </form>
             </div>
         );
     }
 
-    renderFormActionButton = ({
-        order = 0,
-        color = "primary",
-        disabled = false,
-        buttonContent = this.props.buttonContent,
-        buttonLoadingContent = this.props.buttonLoadingContent,
-        renderField = true,
-        ...props
-    }) => {
-        const delay = parseInt(order) * 100;
-        const { classes } = this.props;
-        return (
-            <Slide
-                direction="right"
-                mountOnEnter
-                unmountOnExit
-                in={renderField}
-                style={{ transitionDelay: delay }}
-            >
-                <LoadingButton
-                    isLoading={this.props.isLoading}
-                    text={buttonContent}
-                    loadingText={buttonLoadingContent}
-                    color={color}
-                    disabled={disabled}
-                    className={classes.button}
-                    {...props}
-                />
-            </Slide>
-        );
-    };
+    // renderFormActionButton = ({
+    //     order = 0,
+    //     color = "primary",
+    //     disabled = false,
+    //     buttonContent = this.props.buttonContent,
+    //     buttonLoadingContent = this.props.buttonLoadingContent,
+    //     renderField = true,
+    //     ...props
+    // }) => {
+    //     const delay = parseInt(order) * 100;
+    //     const { classes } = this.props;
+    //     return (
+    //         <Slide
+    //             direction="right"
+    //             mountOnEnter
+    //             unmountOnExit
+    //             in={renderField}
+    //             style={{ transitionDelay: delay }}
+    //         >
+    //             <LoadingButton
+    //                 isLoading={this.props.isLoading}
+    //                 text={buttonContent}
+    //                 loadingText={buttonLoadingContent}
+    //                 color={color}
+    //                 disabled={disabled}
+    //                 className={classes.button}
+    //                 {...props}
+    //             />
+    //         </Slide>
+    //     );
+    // };
 
     pickResendConfirmationType = () => {
         switch (this.props.formAction) {
@@ -231,12 +238,18 @@ class AccountContainer extends React.Component {
         }
     };
 
-    handleFormSubmit = async event => {
+    handleFormSubmit = event => {
         event.preventDefault();
-        this.setState({ isLoading: true });
-        switch (this.props.formAction) {
+        const { user, authForm } = this.props;
+        console.log(authForm.formAction);
+        switch (authForm.formAction) {
             case "signIn":
-                this.handleSignIn(event);
+                this.props.dispatch(
+                    thunkSignIn({
+                        username: user.username,
+                        password: user.password
+                    })
+                );
                 break;
             case "signInPasswordError":
                 //only clickable button = "reset password"
@@ -257,6 +270,7 @@ class AccountContainer extends React.Component {
     };
 
     validateSignupForm() {
+        // console.log(this.props);
         return (
             this.props.email.length > 0 &&
             this.props.password.length > 5 &&
@@ -264,7 +278,8 @@ class AccountContainer extends React.Component {
         );
     }
     validateSignInForm() {
-        return this.props.email.length > 0 && this.props.password.length > 5;
+        const { user } = this.props;
+        return user.username.length > 0 && user.password.length > 5;
     }
 
     validateConfirmationForm() {
@@ -315,8 +330,8 @@ class AccountContainer extends React.Component {
     };
 
     handleSignUpButton = () => {
-        console.log(this.props.authForm.formAction);
-        switch (this.props.authForm.formAction) {
+        const { authForm } = this.props;
+        switch (authForm.formAction) {
             case "signIn":
                 this.props.dispatch(signUpForm());
                 break;
@@ -335,14 +350,14 @@ class AccountContainer extends React.Component {
         }
     };
 
-    handleDisableActionButton() {
-        switch (this.props.formAction) {
+    getDisabledButtonState() {
+        switch (this.props.authForm.formAction) {
             case "signUp":
                 return !this.validateSignupForm();
             case "signIn":
                 return !this.validateSignInForm();
             default:
-                return this.props.disableActionButton;
+                return this.props.authForm.disableActionButton;
         }
     }
 }

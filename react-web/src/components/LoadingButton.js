@@ -4,22 +4,26 @@ import AutorenewIcon from "@material-ui/icons/Autorenew";
 import "./styles/LoadingButton.css";
 
 export default ({
-    isLoading,
+    isLoading = false,
     text,
     loadingText,
     disabled = false,
     variant = "text",
+    type = "button",
     ...props
-}) => (
-    <Button
-        type="submit"
-        variant={variant}
-        fullWidth
-        className="LoadingButton"
-        disabled={disabled || isLoading}
-        {...props}
-    >
-        {isLoading && !disabled && <AutorenewIcon className="loading" />}
-        {!isLoading ? text : loadingText}
-    </Button>
-);
+}) => {
+    const isDisabled = disabled || isLoading;
+    return (
+        <Button
+            type={type}
+            variant={variant}
+            fullWidth
+            className="LoadingButton"
+            disabled={isDisabled ? true : false}
+            {...props}
+        >
+            {isLoading && !disabled && <AutorenewIcon className="loading" />}
+            {!isLoading ? text : loadingText}
+        </Button>
+    );
+};

@@ -1,6 +1,7 @@
 const userReducerDefaultState = {
     username: "",
     password: "",
+    confirmPassword: "",
     email: ""
 };
 

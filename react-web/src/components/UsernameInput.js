@@ -24,7 +24,7 @@ class UsernameInput extends React.Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state);
+    // console.log(state);
     return {
         username: state.user.username,
         disableUsernameInput: state.authForm.disableUsernameInput

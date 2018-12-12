@@ -4,13 +4,6 @@ import { connect } from "react-redux";
 import { setPassword, setConfirmPassword } from "../actions/user";
 
 class PasswordInput extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            confirmPassword: ""
-        };
-    }
     render() {
         return this.props.variant === "password" ? (
             <PaperTextField
@@ -42,12 +35,12 @@ class PasswordInput extends React.Component {
         this.props.dispatch(setPassword(event.target.value));
     };
     confirmPassword = event => {
-        this.setState({ confirmPassword: event.target.value });
+        this.props.dispatch(setConfirmPassword(event.target.value));
     };
 }
 
 const mapStateToProps = state => {
-    console.log(state);
+    // console.log(state);
     return {
         password: state.user.password,
         confirmPassword: state.user.confirmPassword,

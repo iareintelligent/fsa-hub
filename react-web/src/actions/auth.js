@@ -76,9 +76,8 @@ export const signInNotConfirmed = err => ({
 });
 
 export const thunkSignIn = ({ username = "", password = "" } = {}) => {
-    console.log("outside");
+    console.log(username, password);
     return function(dispatch, getState) {
-        console.log("inside");
         dispatch(waitASec());
         return authSignIn({ username, password })
             .then(data => {
@@ -94,7 +93,7 @@ export const thunkSignIn = ({ username = "", password = "" } = {}) => {
                         // this.props.userHasAuthenticated(false);
                         break;
                     case "UserNotFoundException":
-                        // this.setUserNotFoundState(err.message);
+                        dispatch(userNotFoundState(err.message));
                         // this.props.userHasAuthenticated(false);
                         break;
                     case "UserNotConfirmedException":
@@ -106,6 +105,10 @@ export const thunkSignIn = ({ username = "", password = "" } = {}) => {
             });
     };
 };
+export const userNotFoundState = errorMessage => ({
+    type: "USER_NOT_FOUND",
+    errorMessage
+});
 
 export const authForgotPassword = ({ email = "" } = {}) => ({
     type: "FORGOT_PASSWORD",

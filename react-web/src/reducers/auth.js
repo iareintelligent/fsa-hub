@@ -6,6 +6,11 @@ const authReducerDefaultState = {
 
 export default (state = authReducerDefaultState, action) => {
     switch (action.type) {
+        case "USER_NOT_FOUND":
+            return {
+                ...state,
+                isLoading: false
+            };
         case "WAIT_A_SEC":
             return {
                 ...state,
