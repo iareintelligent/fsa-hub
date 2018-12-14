@@ -2,6 +2,7 @@ import React from "react";
 import PaperTextField from "./PaperTextField";
 import { connect } from "react-redux";
 import { setUsername } from "../actions/user";
+import { signInForm } from "../actions/authForm";
 
 class UsernameInput extends React.Component {
     render() {
@@ -20,6 +21,15 @@ class UsernameInput extends React.Component {
     }
     handleChange = event => {
         this.props.dispatch(setUsername(event.target.value));
+
+        switch (this.props.formAction) {
+            case "userNotFound":
+                event.target.id === "username" &&
+                    this.props.dispatch(signInForm());
+                break;
+            default:
+                break;
+        }
     };
 }
 
@@ -27,7 +37,8 @@ const mapStateToProps = state => {
     // console.log(state);
     return {
         username: state.user.username,
-        disableUsernameInput: state.authForm.disableUsernameInput
+        disableUsernameInput: state.authForm.disableUsernameInput,
+        formAction: state.authForm.formAction
     };
 };
 

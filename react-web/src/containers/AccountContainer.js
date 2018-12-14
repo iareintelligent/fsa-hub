@@ -9,6 +9,8 @@ import Button from "@material-ui/core/Button";
 import FormActionbutton from "../components/FormActionButton";
 import UsernameInput from "../components/UsernameInput";
 import PasswordInput from "../components/PasswordInput";
+import EmailInput from "../components/EmailInput";
+
 import ConfirmationCodeInput from "../components/ConfirmationCodeInput";
 
 import {
@@ -17,14 +19,11 @@ import {
     confirmSignUpForm,
     signInPasswordErrorForm,
     forgotPasswordForm,
-    userNotFoundForm
+    userNotFoundForm,
+    enableActionButton
 } from "../actions/authForm";
 
-import {
-    thunkSignIn,
-    thunkForgotPassword,
-    signInPasswordError
-} from "../actions/auth";
+import { thunkSignIn, thunkSignUp, thunkForgotPassword } from "../actions/auth";
 
 const styles = theme => ({
     login: {
@@ -56,6 +55,7 @@ class AccountContainer extends React.Component {
                     <UsernameInput />
                     <PasswordInput variant="password" />
                     <PasswordInput variant="confirmPassword" />
+                    {authForm.showEmailInput && <EmailInput />}
                     <FormActionbutton
                         text={authForm.buttonContent}
                         loadingText={authForm.buttonLoadingContent}
@@ -96,38 +96,6 @@ class AccountContainer extends React.Component {
             </div>
         );
     }
-
-    // renderFormActionButton = ({
-    //     order = 0,
-    //     color = "primary",
-    //     disabled = false,
-    //     buttonContent = this.props.buttonContent,
-    //     buttonLoadingContent = this.props.buttonLoadingContent,
-    //     renderField = true,
-    //     ...props
-    // }) => {
-    //     const delay = parseInt(order) * 100;
-    //     const { classes } = this.props;
-    //     return (
-    //         <Slide
-    //             direction="right"
-    //             mountOnEnter
-    //             unmountOnExit
-    //             in={renderField}
-    //             style={{ transitionDelay: delay }}
-    //         >
-    //             <LoadingButton
-    //                 isLoading={this.props.isLoading}
-    //                 text={buttonContent}
-    //                 loadingText={buttonLoadingContent}
-    //                 color={color}
-    //                 disabled={disabled}
-    //                 className={classes.button}
-    //                 {...props}
-    //             />
-    //         </Slide>
-    //     );
-    // };
 
     pickResendConfirmationType = () => {
         switch (this.props.formAction) {
@@ -264,6 +232,13 @@ class AccountContainer extends React.Component {
                 this.handleSubmitNewPassword(event);
                 break;
             case "signUp":
+                this.props.dispatch(
+                    thunkSignUp({
+                        username: user.username,
+                        password: user.password,
+                        email: user.email
+                    })
+                );
                 this.handleSignUp();
                 break;
             case "confirmSignUp":
@@ -278,6 +253,7 @@ class AccountContainer extends React.Component {
         return (
             user.username.length > 0 &&
             user.password.length > 5 &&
+            user.email.length > 5 &&
             user.password === user.confirmPassword
         );
     }
@@ -292,15 +268,16 @@ class AccountContainer extends React.Component {
     }
 
     handleChange = event => {
+        const { formAction } = this.props.authForm;
+
         this.setState({
             [event.target.id]: event.target.value
         });
 
-        this.props.formAction === "userNotFound" &&
-            event.target.id === "email" &&
-            this.setSignInState();
+        // this.props.formAction === "userNotFound" &&
+        //     event.target.id === "username" &&
 
-        this.props.formAction === "signUpPasswordFail" && this.setSignUpState();
+        // this.props.formAction === "signUpPasswordFail" && this.setSignUpState();
     };
 
     forgotPassword = async event => {

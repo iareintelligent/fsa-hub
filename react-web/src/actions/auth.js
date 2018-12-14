@@ -17,6 +17,7 @@ export const currentAuthenticatedUser = (userToken = {}) => ({
 export const userNotAuthenticated = () => ({
     type: "USER_NOT_AUTHENTICATED"
 });
+
 export const thunkCurrentAuthenticatedUser = () => {
     return function(dispatch, getState) {
         dispatch(waitASec());
@@ -66,13 +67,12 @@ export const signInPasswordError = err => ({
     type: "SIGN_IN_PASSWORD_ERROR",
     err
 });
-export const signInUserNotFound = err => ({
-    type: "SIGN_IN_USER_NOT_FOUND",
-    err
+export const signInUserNotFound = errorMessage => ({
+    type: "USER_NOT_FOUND",
+    errorMessage
 });
-export const signInNotConfirmed = err => ({
-    type: "SIGN_IN_NOT_CONFIRMED",
-    err
+export const signInNotConfirmed = () => ({
+    type: "CONFIRM_SIGN_UP"
 });
 
 export const thunkSignIn = ({ username = "", password = "" } = {}) => {
@@ -88,17 +88,13 @@ export const thunkSignIn = ({ username = "", password = "" } = {}) => {
                 console.log(err);
                 switch (err.code) {
                     case "NotAuthorizedException":
-                        dispatch(signInPasswordError(err));
-                        // this.setSignInPasswordErrorState(err.message);
-                        // this.props.userHasAuthenticated(false);
+                        dispatch(signInPasswordError(err.message));
                         break;
                     case "UserNotFoundException":
-                        dispatch(userNotFoundState(err.message));
-                        // this.props.userHasAuthenticated(false);
+                        dispatch(signInUserNotFound(err.message));
                         break;
                     case "UserNotConfirmedException":
-                        dispatch(confirmSignUp());
-                        dispatch(push("/signup"));
+                        dispatch(signInNotConfirmed());
                         break;
                     default:
                 }
@@ -155,9 +151,10 @@ export const thunkResendSignUp = ({ email = "" } = {}) => {
             .catch(err => console.log(err));
     };
 };
-export const confirmSignUp = {
+export const confirmSignUp = () => ({
     type: "CONFIRM_SIGN_UP"
-};
+});
+
 export const thunkConfirmSignup = ({
     username = "",
     confirmationCode = ""
@@ -185,6 +182,7 @@ export const thunkConfirmSignup = ({
             });
     };
 };
+
 export const thunkSignUp = ({
     username = "",
     password = "",

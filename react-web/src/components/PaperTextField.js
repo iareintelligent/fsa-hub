@@ -31,6 +31,10 @@ class PaperTextField extends React.Component {
             showPassword: false
         };
     }
+
+    handleShowStuff() {
+        console.log("stuff");
+    }
     handleClickShowPassword = () => {
         this.setState(state => ({
             showPassword: !state.showPassword
