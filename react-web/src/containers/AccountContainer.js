@@ -6,9 +6,7 @@ import { connect } from "react-redux";
 import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
 
-import PaperTextField from "../components/PaperTextField";
 import FormActionbutton from "../components/FormActionButton";
-import LoadingButton from "../components/LoadingButton";
 import UsernameInput from "../components/UsernameInput";
 import PasswordInput from "../components/PasswordInput";
 import ConfirmationCodeInput from "../components/ConfirmationCodeInput";
@@ -21,7 +19,12 @@ import {
     forgotPasswordForm,
     userNotFoundForm
 } from "../actions/authForm";
-import { thunkSignIn, signInPasswordError } from "../actions/auth";
+
+import {
+    thunkSignIn,
+    thunkForgotPassword,
+    signInPasswordError
+} from "../actions/auth";
 
 const styles = theme => ({
     login: {
@@ -71,6 +74,7 @@ class AccountContainer extends React.Component {
                             {authForm.signUpButtonText || "Error"}
                         </Button>
                     )}
+
                     {/* {authForm.formAction === "signInPasswordError" &&
                         this.renderFormActionButton({
                             order: 0,
@@ -252,8 +256,8 @@ class AccountContainer extends React.Component {
                 );
                 break;
             case "signInPasswordError":
-                //only clickable button = "reset password"
-                this.handleResetPassword(event);
+                // this.handleResetPassword(event);
+                this.props.dispatch(thunkForgotPassword);
                 break;
             case "forgotPassword":
                 //action button = "reset password"; requires: confirmation code and password.
@@ -270,11 +274,11 @@ class AccountContainer extends React.Component {
     };
 
     validateSignupForm() {
-        // console.log(this.props);
+        const { user } = this.props;
         return (
-            this.props.email.length > 0 &&
-            this.props.password.length > 5 &&
-            this.props.password === this.props.confirmPassword
+            user.username.length > 0 &&
+            user.password.length > 5 &&
+            user.password === user.confirmPassword
         );
     }
     validateSignInForm() {
@@ -283,7 +287,8 @@ class AccountContainer extends React.Component {
     }
 
     validateConfirmationForm() {
-        return this.props.confirmationCode.length > 0;
+        const { confirmationCode } = this.props.authForm;
+        return confirmationCode.length > 0;
     }
 
     handleChange = event => {
@@ -344,9 +349,9 @@ class AccountContainer extends React.Component {
             case "userNotFound":
                 this.props.dispatch(signUpForm());
                 break;
-
             default:
                 this.props.dispatch(signInForm());
+                break;
         }
     };
 

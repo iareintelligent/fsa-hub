@@ -26,7 +26,7 @@ class PasswordInput extends React.Component {
                 type="password"
                 renderField={this.props.showConfirmPassword}
                 handleChange={this.confirmPassword}
-                value={this.state.confirmPassword}
+                value={this.props.confirmPassword}
                 autoComplete="new-password"
             />
         );
