@@ -1,4 +1,5 @@
 const authFormReducerDefaultState = {
+    showPassword: false,
     confirmationRequired: false,
     confirmationCode: "",
     errors: [],
@@ -19,6 +20,11 @@ const authFormReducerDefaultState = {
 
 export default (state = authFormReducerDefaultState, action) => {
     switch (action.type) {
+        case "TOGGLE_SHOW_PASSWORD":
+            return {
+                ...state,
+                showPassword: !state.showPassword
+            };
         case "SET_CONFIRMATION_CODE":
             return {
                 ...state,
@@ -61,16 +67,15 @@ export default (state = authFormReducerDefaultState, action) => {
             return {
                 ...state,
                 confirmationRequired: true,
-                showSignUpButton: true,
-                signUpButtonText: "Cancel",
+                showSignUpButton: false,
                 isLoading: false,
                 formAction: "confirmSignUp",
                 disableUsernameInput: true,
                 disableActionButton: false,
-                showPasswordInput: true,
-                showConfirmPassword: false,
+                showPasswordInput: false,
+                showConfirmPassword: true,
                 showConfirmationInput: true,
-                showEmailInput: false
+                showEmailInput: true
             };
         case "SIGN_IN_PASSWORD_ERROR":
             return {

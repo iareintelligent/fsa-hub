@@ -23,3 +23,6 @@ export const forgotPasswordForm = () => ({
 export const userNotFoundForm = () => ({
     type: "USER_NOT_FOUND"
 });
+export const toggleShowPassword = () => ({
+    type: "TOGGLE_SHOW_PASSWORD"
+});

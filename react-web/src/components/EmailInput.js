@@ -2,21 +2,24 @@ import React from "react";
 import PaperTextField from "./PaperTextField";
 import { connect } from "react-redux";
 import { setEmail } from "../actions/user";
+import { TextField } from "@material-ui/core";
 
 class EmailInput extends React.Component {
     render() {
         console.log(this.props);
         return (
-            <PaperTextField
-                id="email"
-                label="email"
-                type="email"
-                handleChange={this.handleChange}
-                value={this.props.email}
-                autoComplete="new-password"
-                disabled={this.props.disableUsernameInput}
-                fullWidth
-            />
+            <PaperTextField>
+                <TextField
+                    id="email"
+                    label="email"
+                    type="email"
+                    onChange={this.handleChange}
+                    value={this.props.email}
+                    autoComplete="new-password"
+                    disabled={this.props.disableUsernameInput}
+                    fullWidth
+                />
+            </PaperTextField>
         );
     }
     handleChange = event => {

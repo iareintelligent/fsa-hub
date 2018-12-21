@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import TextField from "@material-ui/core/TextField";
 import Slide from "@material-ui/core/Slide";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -20,7 +21,7 @@ class ConfirmationCodeInput extends React.Component {
         const { authForm, classes } = this.props;
         return (
             <React.Fragment>
-                <PaperTextField
+                <TextField
                     id="confirmationCode"
                     label="confirmation code"
                     type="text"

@@ -1,22 +1,26 @@
 import React from "react";
-import PaperTextField from "./PaperTextField";
+import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
+
+import PaperTextField from "./PaperTextField";
 import { setUsername } from "../actions/user";
 import { signInForm } from "../actions/authForm";
 
 class UsernameInput extends React.Component {
     render() {
         return (
-            <PaperTextField
-                id="username"
-                label="username"
-                type="text"
-                handleChange={this.handleChange}
-                value={this.props.username}
-                autoComplete="new-password"
-                disabled={this.props.disableUsernameInput}
-                fullWidth
-            />
+            <PaperTextField>
+                <TextField
+                    id="username"
+                    label="username"
+                    type="text"
+                    onChange={this.handleChange}
+                    value={this.props.username}
+                    autoComplete="new-password"
+                    disabled={this.props.disableUsernameInput}
+                    fullWidth
+                />
+            </PaperTextField>
         );
     }
     handleChange = event => {
