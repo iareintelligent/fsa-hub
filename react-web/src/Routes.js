@@ -15,7 +15,7 @@ import AccountContainer from "./containers/AccountContainer";
 export default () => (
     <ConnectedRouter history={history}>
         <Switch>
-            <AppliedRoute path="/" exact component={Home} />
+            <AppliedRoute path="/" exact component={LinkTabs} />
             <AppliedRoute path="/signup" exact component={Signup} />
             <AppliedRoute path="/login" exact component={Login} />
             <AppliedRoute
@@ -23,7 +23,6 @@ export default () => (
                 exact
                 component={AccountContainer}
             />
-            <AppliedRoute path="/knowledge" exact component={LinkTabs} />
             <AppliedRoute path="/link/:id" component={LinkComponent} />
             <Route path="/tool/:schema" component={ToolsContainer} />
         </Switch>

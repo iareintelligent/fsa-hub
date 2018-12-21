@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-// import sanity from '../lib/sanity'
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-// import Typography from "@material-ui/core/Typography";
 import FolderContainers from "../components/FolderContainers";
 import {
     fullStackApprenticeship,
@@ -12,23 +10,12 @@ import {
     findingWork
 } from "../directories";
 
-// function TabContainer(props) {
-
-//     return (
-//         <Typography component="div" style={{ padding: 8 * 3 }}>
-//             {props.children}
-//         </Typography>
-//     );
-// }
-
 const styles = theme => ({
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper
     }
 });
-
-// const query = `*[_type == 'algorithmsSchema' || _type == 'gitSchema' || _type == 'nativeSchema' || _type == 'webSchema' || _type == 'backEndSchema' || _type == 'commandLineSchema' || _type == 'javascriptSchema' || _type == 'gitSchema' || _type == 'awsSchema' || _type == 'securitySchema'  ]{_type, text, title, url}`;
 
 class LinkTabs extends Component {
     constructor(props) {
@@ -59,9 +46,9 @@ class LinkTabs extends Component {
             <div className={classes.root}>
                 <AppBar position="static">
                     <Tabs value={value} onChange={this.handleChange}>
-                        <Tab label="FSA Knowledge Base" />
-                        <Tab label="City by City" />
-                        <Tab label="Finding Work & Opportunity" />
+                        <Tab label="FS-Apprenticeship" />
+                        <Tab label="City Guide" />
+                        <Tab label="Getting Paid" />
                     </Tabs>
                 </AppBar>
                 {value === 0 && (

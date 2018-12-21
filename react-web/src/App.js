@@ -19,6 +19,13 @@ const theme = createMuiTheme({
         useNextVariants: true,
         fontSize: 16,
         fontFamily: "'Quicksand', sans-serif;"
+    },
+    palette: {
+        primary: {
+            // main: "#6200EE"
+            // main: '#9c27b0'
+            main: '#3700B3'
+        }
     }
 });
 

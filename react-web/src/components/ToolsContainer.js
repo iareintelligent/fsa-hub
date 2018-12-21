@@ -46,7 +46,7 @@ export default class ToolsContainer extends Component {
     }
 
     async componentDidMount() {
-        const query = `*[_type == '${this.props.match.params.schema}']{type, _type, text, title, url, _id}`
+        const query = `*[_type == '${this.props.match.params.schema}']{type, _type, text, title, priority, url, _id}`
         const links = await sanity.fetch(query);
         this.setState({ links })
     }
