@@ -25,6 +25,7 @@ import SandboxScreen from '../screens/SandboxScreen';
 import SubcategoriesScreen from '../screens/SubcategoriesScreen';
 import ContentScreen from "../screens/ContentScreen";
 import BlueprintScreen from "../screens/BlueprintScreen";
+import MessagesListScreen from '../screens/MessagesListScreen';
 
 
 const AuthStackNavigator = createStackNavigator({
@@ -37,6 +38,23 @@ const KnowledgeStackNavigator = createStackNavigator({
   Knowledge: { screen: KnowledgeScreen },
   Subcategories: { screen: SubcategoriesScreen },
   Content: { screen: ContentScreen },
+});
+
+const ChatStackNavigator = createStackNavigator({
+  MessagesList: { 
+    screen: MessagesListScreen, 
+    navigationOptions: ({ navigation }) => ({
+      title: 'Messages',
+      headerLeft: (
+          <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+              <View style={{ paddingHorizontal: 10 }}>
+                  <Ionicons name="md-menu" size={32} />
+              </View>
+          </TouchableOpacity>
+      ),
+    }),
+  },
+  Chat: { screen: ChatScreen }
 });
 
 const AppTabNavigator = createBottomTabNavigator(
@@ -85,23 +103,23 @@ const AppTabNavigator = createBottomTabNavigator(
           ),
         },
       },
-      Preview: {
-        screen: PreviewScreen,
-        tabBarLable: 'Preview',
-        navigationOptions: {
-          tabBarIcon: ({ tintColor }) => (
-            <Entypo name="magnifying-glass" size={28} color={tintColor} />
-          ),
-        },
-      },
-      Profile: {
-        screen: ProfileScreen,
-        navigationOptions: {
-          tabBarIcon: ({ tintColor }) => (
-            <Entypo name="user" size={28} color={tintColor} />
-          ),
-        },
-      },
+      // Preview: {
+      //   screen: PreviewScreen,
+      //   tabBarLable: 'Preview',
+      //   navigationOptions: {
+      //     tabBarIcon: ({ tintColor }) => (
+      //       <Entypo name="magnifying-glass" size={28} color={tintColor} />
+      //     ),
+      //   },
+      // },
+      // Profile: {
+      //   screen: ProfileScreen,
+      //   navigationOptions: {
+      //     tabBarIcon: ({ tintColor }) => (
+      //       <Entypo name="user" size={28} color={tintColor} />
+      //     ),
+      //   },
+      // },
     },
     {
       tabBarOptions: {
@@ -130,6 +148,7 @@ const AppStackNavigator = createStackNavigator({
 const AppDrawerNavigator = createDrawerNavigator({
     Home: AppStackNavigator,
     Settings: { screen: SettingsScreen },
+    Messages: ChatStackNavigator,
 });
 
 const AppNavigator = createSwitchNavigator({

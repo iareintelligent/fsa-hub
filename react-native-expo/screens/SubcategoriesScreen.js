@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Image} from 'react-native';
-import {Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Text, Button, Icon, Left, Right, Body} from 'native-base';
-import { withNavigation } from 'react-navigation';
+import { StyleSheet, View } from 'react-native';
+import {Container, Content, List, ListItem, Text, Left, Right, Body} from 'native-base';
 import NavButton from "../components/NavButton";
 import { fullStackApprenticeship, findingWork, cityByCity } from "../directories";
 
@@ -40,13 +39,11 @@ class SubcategoriesScreen extends Component {
           {this.state.schema.map((list, i) => (
             <ListItem key={i}>
               <Left>
-                  <Text>{list.name}</Text>
+                  <Text style={{fontSize: 24}}>{list.name}{'\n'}<Text style={{fontStyle: "italic"}}>{list.description}</Text></Text>
               </Left>
-              <Right>
-                <NavButton title="Go" schema={list.type} navigation={this.props.navigation} route="Content" onPress={() => this.props.navigation.navigate('Content')}
-                    >
-                  <Text>=></Text>
-                </NavButton>
+
+              <Right >
+                <NavButton schema={list.type} navigation={this.props.navigation} route="Content" onPress={() => this.props.navigation.navigate('Content')} />
               </Right>
             </ListItem>
           )

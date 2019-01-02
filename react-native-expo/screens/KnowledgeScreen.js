@@ -31,16 +31,16 @@ class KnowledgeScreen extends Component
                 </CardItem>
                 <CardItem>
                     <Body>
-                        <NavButton route="Subcategories" schema="fullStackApprenticeship" block textStyle={{color: `#87838B`}} onPress={() => this.props.navigation.navigate('Subcategories')}
+                        <NavButton route="Subcategories" schema="fullStackApprenticeship" block textStyle={{color: "#6200EE"}} onPress={() => this.props.navigation.navigate('Subcategories')}
                         >
                             <Text>View Resources</Text>
                         </NavButton>                      
                     </Body>
                 </CardItem>
                 </Card>
-            </Content>
-            <Content>
-                <Card style={{flex: 0}}>
+            {/* </Content>
+            <Content> */}
+                <Card>
                 <CardItem>
                     <Left>
                         <Thumbnail source={require('../assets/fsa.jpeg')} />
@@ -57,7 +57,7 @@ class KnowledgeScreen extends Component
                 </CardItem>
                 <CardItem>
                     <Body>
-                        <NavButton route="Subcategories" schema="findingWork" block textStyle={{color: `#87838B`}} onPress={() => this.props.navigation.navigate('Subcategories')}
+                        <NavButton route="Subcategories" schema="findingWork" block textStyle={{color: "#6200EE"}} onPress={() => this.props.navigation.navigate('Subcategories')}
                         >
                             <Text>View Resources</Text>
                         </NavButton>

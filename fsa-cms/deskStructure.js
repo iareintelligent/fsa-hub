@@ -186,6 +186,24 @@ export default () =>
                                         .filter('_type == $type && !defined(parents)')
                                         .params({ type: 'eastsideSchema' })
                                 ),
+                                S.listItem()
+                                .title("Tacoma")
+                                .child(
+                                    S.documentList()
+                                        .title('Tacoma')
+                                        .menuItems(S.documentTypeList('tacomaSchema').getMenuItems())
+                                        .filter('_type == $type && !defined(parents)')
+                                        .params({ type: 'tacomaSchema' })
+                                ),
+                                S.listItem()
+                                .title("Everett")
+                                .child(
+                                    S.documentList()
+                                        .title('Everett')
+                                        .menuItems(S.documentTypeList('everettSchema').getMenuItems())
+                                        .filter('_type == $type && !defined(parents)')
+                                        .params({ type: 'everettSchema' })
+                                ),
                         ])
                 ),
                 S.listItem()

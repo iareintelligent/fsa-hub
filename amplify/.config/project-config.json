@@ -1,15 +1,15 @@
 {
-    "projectName": "reactapp",
-    "projectPath": "/home/aspen/code/Proj/fsa-hub/react-app",
+    "projectName": "fsahub",
+    "projectPath": "/Users/mikhaelbd/Workspace/FSA/fsa-hub",
     "defaultEditor": "code",
     "frontendHandler": {
         "javascript": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-frontend-javascript"
     },
     "javascript": {
-        "framework": "react",
+        "framework": "react-native",
         "config": {
-            "SourceDir": "src",
-            "DistributionDir": "build",
+            "SourceDir": "react-native-expo/",
+            "DistributionDir": "/",
             "BuildCommand": "npm run-script build",
             "StartCommand": "npm run-script start"
         }
